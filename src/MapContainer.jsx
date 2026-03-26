@@ -1,6 +1,6 @@
 import { Map, MapMarker } from "react-kakao-maps-sdk";
 import { useEffect, useState } from "react";
-/* global kakao */
+import { getNearbyGyms } from "./api/mapApi";
 
 function MapContainer() {
   const [info, setInfo] = useState();
@@ -9,29 +9,23 @@ function MapContainer() {
   const [center, setCenter] = useState({ lat: 37.5665, lng: 126.978 });
   const [position, setPosition] = useState(null);
 
-  const searchPlaces = (currentMap) => {
+  const searchPlaces = async (currentMap) => {
     if (!currentMap) return;
 
-    const ps = new kakao.maps.services.Places();
-    const options = {
-      location: currentMap.getCenter(),
-      radius: 2000,
-      sort: kakao.maps.services.SortBy.DISTANCE,
-    };
+    const center = currentMap.getCenter();
+    const lat = center.getLat();
+    const lng = center.getLng();
 
-    ps.keywordSearch(
-      "헬스장",
-      (data, status) => {
-        if (status === kakao.maps.services.Status.OK) {
-          const newMarkers = data.map((place) => ({
-            position: { lat: Number(place.y), lng: Number(place.x) },
-            content: place.place_name,
-          }));
-          setMarkers(newMarkers);
-        }
-      },
-      options,
-    );
+    try {
+      const response = await getNearbyGyms(lat, lng);
+      const newMarkers = response.data.documents.map((place) => ({
+        position: { lat: Number(place.y), lng: Number(place.x) },
+        content: place.place_name,
+      }));
+      setMarkers(newMarkers);
+    } catch (error) {
+      console.error("헬스장 데이터를 가져오는 중 에러 발생", error);
+    }
   };
 
   useEffect(() => {
