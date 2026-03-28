@@ -1,13 +1,9 @@
+import { RouterProvider } from "react-router-dom";
 import "./App.css";
-import MapContainer from "./MapContainer";
+import root from "./router/root";
 
 function App() {
-  return (
-    <div className="flex-col">
-      <h1 className="flex justify-center text-4xl p-4">OurFitLog</h1>
-      <MapContainer></MapContainer>
-    </div>
-  );
+  return <RouterProvider router={root}></RouterProvider>;
 }
 
 export default App;
