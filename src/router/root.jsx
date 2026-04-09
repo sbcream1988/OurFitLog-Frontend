@@ -5,6 +5,9 @@ import { lazy, Suspense } from "react";
 
 const Main = lazy(() => import("../pages/MainPage"));
 const Map = lazy(() => import("../pages/maps/MapPage"));
+const MyPage = lazy(() => import("../pages/users/MyPage"));
+const Chat = lazy(() => import("../pages/chats/ChatPage"));
+const Gathering = lazy(() => import("../pages/gatherings/GatheringPage"));
 
 const root = createBrowserRouter([
   {
@@ -20,7 +23,20 @@ const root = createBrowserRouter([
         ),
       },
       {
-        path: "map",
+        path: "post",
+        children: [
+          {
+            path: "write",
+            element: <Suspense fallback={"Loading"}></Suspense>,
+          },
+          {
+            path: ":id",
+            element: <Suspense fallback={"Loading"}></Suspense>,
+          },
+        ],
+      },
+      {
+        path: "search",
         element: (
           <Suspense fallback={"Loading"}>
             <Map></Map>
@@ -28,13 +44,28 @@ const root = createBrowserRouter([
         ),
       },
       {
-        path: "post",
-        children: [
-          {
-            path: "wirte",
-            element: <Suspense fallback={"Loading"}></Suspense>,
-          },
-        ],
+        path: "chat",
+        element: (
+          <Suspense fallback={"Loading"}>
+            <Chat></Chat>
+          </Suspense>
+        ),
+      },
+      {
+        path: "gathering",
+        element: (
+          <Suspense>
+            <Gathering></Gathering>
+          </Suspense>
+        ),
+      },
+      {
+        path: "my",
+        element: (
+          <Suspense fallback={"Loading"}>
+            <MyPage></MyPage>
+          </Suspense>
+        ),
       },
     ],
   },

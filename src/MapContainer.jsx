@@ -1,6 +1,8 @@
 import { Map, MapMarker } from "react-kakao-maps-sdk";
 import { useEffect, useState } from "react";
 import { getNearbyGyms } from "./api/mapApi";
+import { useCallback } from "react";
+import GymMarker from "./components/map/GymMarker";
 
 function MapContainer() {
   const [info, setInfo] = useState();
@@ -38,6 +40,10 @@ function MapContainer() {
     }
   }, []);
 
+  const handleClickMarker = useCallback((marker) => {
+    setInfo(marker);
+  }, []);
+
   return (
     <div>
       <div className="flex gap-2 mb-2">
@@ -55,19 +61,25 @@ function MapContainer() {
         onCreate={setMap}
       >
         {position && <MapMarker position={position}></MapMarker>}
-        {markers.map((marker) => (
-          <MapMarker
-            key={`marker-${marker.content}-${marker.position.lat}`}
-            position={marker.position}
-            onClick={() => setInfo(marker)}
-          >
-            {info && info.content === marker.content && (
-              <div style={{ color: "#000", padding: "5px" }}>
-                {marker.content}
-              </div>
-            )}
-          </MapMarker>
-        ))}
+        {markers.map(
+          (marker) => (
+            console.log(`마커렌더링 시도:${marker.content}`),
+            (
+              <GymMarker
+                key={`marker-${marker.content}-${marker.position.lat}`}
+                marker={marker}
+                isSelected={info?.content === marker.content}
+                onClick={handleClickMarker}
+              >
+                {info && info.content === marker.content && (
+                  <div style={{ color: "#000", padding: "5px" }}>
+                    {marker.content}
+                  </div>
+                )}
+              </GymMarker>
+            )
+          ),
+        )}
       </Map>
     </div>
   );

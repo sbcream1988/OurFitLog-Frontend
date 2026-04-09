@@ -3,9 +3,11 @@ import Navbar from "../layout/Navbar";
 
 const MainLayout = () => {
   return (
-    <div>
+    <div className="flex flex-col items-center ">
       <Navbar></Navbar>
-      <Outlet></Outlet>
+      <div className="w-full flex justify-center items-center-safe min-h-screen">
+        <Outlet></Outlet>
+      </div>
     </div>
   );
 };
