@@ -1,6 +1,13 @@
+import { LuBell } from "react-icons/lu";
+
 const ChatItem = () => {
   return (
-    <div className="bg-blue-900 w-2xl">
+    <div
+      className="bg-blue-900 w-2xl hover:cursor-pointer"
+      onClick={() => {
+        console.log("채팅방 이동");
+      }}
+    >
       <div className="flex flex-row p-2 m-2">
         <div className="w-2/12 flex items-center justify-center">
           <div className="fix w-12 h-12 border bg-green-200 border-white rounded-full text-xs flex items-center justify-center">

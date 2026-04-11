@@ -8,7 +8,7 @@ const LoginComponent = () => {
   };
 
   const handleKakaoLogin = () => {
-    navigate("/");
+    window.location.href = "http://localhost:8080/oauth2/authorization/kakao";
   };
 
   return (
@@ -48,7 +48,7 @@ const LoginComponent = () => {
         <button
           className="w-12 h-12 rounded-full bg-amber-200 text-black text-sm hover:cursor-pointer"
           onClick={() => {
-            handleKakaoLogin;
+            handleKakaoLogin();
           }}
         >
           카카오

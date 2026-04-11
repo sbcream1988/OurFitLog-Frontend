@@ -8,6 +8,8 @@ const Map = lazy(() => import("../pages/maps/MapPage"));
 const MyPage = lazy(() => import("../pages/users/MyPage"));
 const Chat = lazy(() => import("../pages/chats/ChatPage"));
 const Gathering = lazy(() => import("../pages/gatherings/GatheringPage"));
+const Login = lazy(() => import("../pages/users/LoginPage"));
+const LoginSuccess = lazy(() => import("../components/users/LoginSuccess"));
 
 const root = createBrowserRouter([
   {
@@ -64,6 +66,22 @@ const root = createBrowserRouter([
         element: (
           <Suspense fallback={"Loading"}>
             <MyPage></MyPage>
+          </Suspense>
+        ),
+      },
+      {
+        path: "login",
+        element: (
+          <Suspense fallback={"Loading"}>
+            <Login></Login>
+          </Suspense>
+        ),
+      },
+      {
+        path: "login-success",
+        element: (
+          <Suspense fallback={"Loading"}>
+            <LoginSuccess></LoginSuccess>
           </Suspense>
         ),
       },
