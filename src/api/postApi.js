@@ -1,8 +1,8 @@
-import axios from "axios";
+import jwtAxios from "./jwtAxios";
 
-const api = axios.create({
-  baseURL: "http://localhost:8080",
-  withCredentials: true,
-});
-
-export const createPost = (postData) => api.post("/api/posts", postData);
+export const createPost = async (formData) => {
+  const res = await jwtAxios.post("/api/posts", formData, {
+    headers: { "Content-Type": "multipart/form-data" },
+  });
+  return res;
+};

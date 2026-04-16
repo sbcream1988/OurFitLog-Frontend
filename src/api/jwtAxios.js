@@ -10,11 +10,12 @@ jwtAxios.interceptors.request.use((config) => {
   if (token) {
     config.headers.Authorization = `Bearer ${token}`;
   }
+  return config;
 });
 
 jwtAxios.interceptors.response.use(
   (res) => {
-    res;
+    return res;
   },
   (error) => {
     if (error.response && error.response.status === 401) {

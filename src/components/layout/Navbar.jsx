@@ -20,7 +20,11 @@ const Navbar = () => {
 
   const menuItems = [
     { name: "홈", path: "/", icon: <LuHouse></LuHouse> },
-    { name: "작성", path: "/post", icon: <LuNotebookPen></LuNotebookPen> },
+    {
+      name: "작성",
+      path: "/post/write",
+      icon: <LuNotebookPen></LuNotebookPen>,
+    },
     { name: "검색", path: "/search", icon: <LuMapPinned></LuMapPinned> },
     { name: "채팅", path: "/chat", icon: <LuSend></LuSend> },
     { name: "모임", path: "/gathering", icon: <LuUserRound></LuUserRound> },
