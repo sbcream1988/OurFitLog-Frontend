@@ -3,6 +3,7 @@ import { lazy, Suspense } from "react";
 
 const PostPage = lazy(() => import("../pages/posts/PostPage"));
 const PostWrite = lazy(() => import("../pages/posts/PostWritePage"));
+const PostList = lazy(() => import("../pages/posts/PostListPage"));
 
 const postRouter = () => {
   return [
@@ -10,11 +11,18 @@ const postRouter = () => {
       path: "",
       element: (
         <Suspense fallback={"Loading"}>
-          {" "}
           <PostPage></PostPage>
         </Suspense>
       ),
       children: [
+        {
+          path: "",
+          element: (
+            <Suspense fallback={"Loading"}>
+              <PostList></PostList>
+            </Suspense>
+          ),
+        },
         {
           path: "write",
           element: (

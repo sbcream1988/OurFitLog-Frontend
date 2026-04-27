@@ -26,7 +26,7 @@ const Navbar = () => {
       icon: <LuNotebookPen></LuNotebookPen>,
     },
     { name: "검색", path: "/search", icon: <LuMapPinned></LuMapPinned> },
-    { name: "채팅", path: "/chat", icon: <LuSend></LuSend> },
+    { name: "채팅", path: "/chat/list", icon: <LuSend></LuSend> },
     { name: "모임", path: "/gathering", icon: <LuUserRound></LuUserRound> },
     { name: "마이", path: "/my", icon: <LuUserCog></LuUserCog> },
   ];

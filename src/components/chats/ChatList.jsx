@@ -2,10 +2,16 @@ import { useEffect, useState } from "react";
 import ChatItem from "../chats/ChatItem";
 import { getChatRooms } from "../../api/chatApi";
 import ChatRoom from "./ChatRoom";
+import { useNavigate } from "react-router-dom";
 
 const ChatList = () => {
   const [selectedRoomId, setSelectedRoomId] = useState(null);
   const [rooms, setRooms] = useState([]);
+  const navigate = useNavigate();
+
+  const handleMoveChatRoom = (roomId) => {
+    navigate(`/chat/${roomId}`);
+  };
 
   useEffect(() => {
     getChatRooms().then((data) => {
@@ -36,7 +42,7 @@ const ChatList = () => {
           <ChatItem
             key={room.roomId}
             room={room}
-            onClick={setSelectedRoomId}
+            onClick={handleMoveChatRoom}
           ></ChatItem>
         ))
       ) : (

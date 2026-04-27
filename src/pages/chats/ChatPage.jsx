@@ -1,9 +1,11 @@
 import { Outlet } from "react-router-dom";
 
 const ChatPage = () => {
-  <div>
-    <Outlet></Outlet>
-  </div>;
+  return (
+    <div className="flex w-full justify-center items-center">
+      <Outlet></Outlet>
+    </div>
+  );
 };
 
 export default ChatPage;

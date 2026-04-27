@@ -3,6 +3,8 @@ import { createBrowserRouter } from "react-router-dom";
 import MainLayout from "../components/layout/MainLayout";
 import { lazy, Suspense } from "react";
 import postRouter from "./postRouter";
+import { Navigate } from "react-router-dom";
+import chatRouter from "./chatRouter";
 
 const Main = lazy(() => import("../pages/MainPage"));
 const Map = lazy(() => import("../pages/maps/MapPage"));
@@ -22,7 +24,7 @@ const root = createBrowserRouter([
         index: true,
         element: (
           <Suspense fallback={"Loading"}>
-            <Main></Main>
+            <Navigate to="/post" replace></Navigate>
           </Suspense>
         ),
       },
@@ -40,11 +42,7 @@ const root = createBrowserRouter([
       },
       {
         path: "chat",
-        element: (
-          <Suspense fallback={"Loading"}>
-            <Chat></Chat>
-          </Suspense>
-        ),
+        children: chatRouter(),
       },
       {
         path: "gathering",
