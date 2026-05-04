@@ -1,6 +1,21 @@
 import { LuBell } from "react-icons/lu";
+import { leaveRoom } from "../../api/chatApi";
 
-const ChatItem = ({ room, onClick }) => {
+const ChatItem = ({ room, onClick, onLeaveSuccess }) => {
+  const handleLeaveRoom = async (e, roomId) => {
+    e.stopPropagation();
+
+    if (!window.confirm("채팅방을 나가시겠습니까?")) return;
+
+    try {
+      await leaveRoom(roomId);
+      alert("방을 나갔습니다");
+      if (onLeaveSuccess) onLeaveSuccess();
+    } catch (e) {
+      console.error("채팅방 나가기 실패: ", e);
+    }
+  };
+
   return (
     <div
       className="bg-blue-900 w-2xl hover:cursor-pointer"
@@ -26,10 +41,17 @@ const ChatItem = ({ room, onClick }) => {
 
         <div className="w-2/12 flex-row">
           <div className="p-2 bg-red-200 text-sm flex justify-center">
-            {room.lasChatTime || "방금전"}
+            {room.lastChatTime || "방금전"}
           </div>
-          <div className="p-2 bg-orange-200 text-xl">
-            <LuBell></LuBell>
+          <div className="p-2 bg-orange-200 text-xl flex justify-center cursor-pointer">
+            <button
+              className="text-sm"
+              onClick={(e) => {
+                handleLeaveRoom(e, room.roomId);
+              }}
+            >
+              나가기
+            </button>
           </div>
         </div>
       </div>

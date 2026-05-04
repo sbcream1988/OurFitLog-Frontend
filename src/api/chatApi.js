@@ -16,6 +16,11 @@ export const getChatRooms = async () => {
 };
 
 export const getOrCreateRooms = async (partnerId) => {
-  const res = jwtAxios.post(`/api/chat/room/dm/${partnerId}`);
+  const res = await jwtAxios.post(`/api/chat/room/dm/${partnerId}`);
   return (await res).data;
+};
+
+export const leaveRoom = async (roomId) => {
+  const res = await jwtAxios.delete(`/api/chat/room/${roomId}`);
+  return res.data;
 };

@@ -5,7 +5,7 @@ import ExerciseItemComponent from "../exercises/ExerciseItemComponent";
 const initState = {
   id: Date.now(),
   exerciseName: "",
-  exerciseType: "",
+  exerciseType: "WEIGHT",
   setDetails: [{ weight: 0, reps: 0 }],
 };
 
@@ -20,7 +20,7 @@ const PostWriteComponent = () => {
       {
         id: Date.now(),
         exerciseName: "",
-        exerciseType: "",
+        exerciseType: "WEIGHT",
         setDetails: [{ weight: 0, reps: 0 }],
       },
     ]);
@@ -49,6 +49,12 @@ const PostWriteComponent = () => {
     setExercises(newExercises);
   };
 
+  const handleSetChange = (exerciseIndex, setIndex, field, value) => {
+    const newExercises = [...exercises];
+    newExercises[exerciseIndex].setDetails[setIndex][field] = value;
+    setExercises(newExercises);
+  };
+
   const handleFileChange = (e) => {
     if (e.target.files) {
       setImageFiles(Array.from(e.target.files));
@@ -57,7 +63,17 @@ const PostWriteComponent = () => {
 
   const handleCreate = async () => {
     const formData = new FormData();
-    const postData = { title: "", content: "", exercises: exercises };
+
+    const normalizeExercises = exercises.map((exercise) => ({
+      exerciseName: exercise.exerciseName,
+      exerciseType: exercise.exerciseType,
+      weight: Number(exercise.setDetails[0]?.weight ?? 0),
+      reps: Number(exercise.setDetails[0]?.reps ?? 0),
+      sets: exercise.setDetails.length,
+      memo: "",
+    }));
+
+    const postData = { title: "", content: "", exercises: normalizeExercises };
 
     formData.append(
       "requestDto",
@@ -106,6 +122,14 @@ const PostWriteComponent = () => {
                 exercise={exercise}
                 addSet={() => addSet(index)}
                 removeSet={(setIndex) => removeSet(index, setIndex)}
+                handleSetChange={(setIndex, field, value) =>
+                  handleSetChange(index, setIndex, field, value)
+                }
+                handleNameChange={(value) => {
+                  const newExercises = [...exercises];
+                  newExercises[index].exerciseName = value;
+                  setExercises(newExercises);
+                }}
               ></ExerciseItemComponent>
             ))}
           </div>

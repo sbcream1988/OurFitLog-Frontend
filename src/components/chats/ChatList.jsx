@@ -13,10 +13,12 @@ const ChatList = () => {
     navigate(`/chat/${roomId}`);
   };
 
+  const fetchRooms = () => {
+    getChatRooms().then((data) => setRooms(data.data));
+  };
+
   useEffect(() => {
-    getChatRooms().then((data) => {
-      setRooms(data.data);
-    });
+    fetchRooms();
   }, []);
 
   if (selectedRoomId) {
@@ -43,6 +45,7 @@ const ChatList = () => {
             key={room.roomId}
             room={room}
             onClick={handleMoveChatRoom}
+            onLeaveSuccess={fetchRooms}
           ></ChatItem>
         ))
       ) : (

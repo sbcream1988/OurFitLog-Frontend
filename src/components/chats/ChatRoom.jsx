@@ -56,9 +56,7 @@ const ChatRoom = () => {
       stompClient.current.publish({
         destination: "/pub/chat/message",
         headers: headers,
-        body: JSON.stringify({
-          chatMessage,
-        }),
+        body: JSON.stringify(chatMessage),
       });
       setInputMessage("");
     } else {
