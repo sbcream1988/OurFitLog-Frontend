@@ -4,6 +4,7 @@ import { useNavigate } from "react-router-dom";
 import { getOrCreateRooms } from "../../api/chatApi";
 
 const PostCard = ({ post }) => {
+  console.log("포스트 데이터: ", post);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const menuRef = useRef();
   const navigate = useNavigate();
@@ -87,7 +88,7 @@ const PostCard = ({ post }) => {
               <img
                 src={post.images[0].imageUrl}
                 alt="post"
-                className="w-full h-full object-over"
+                className="w-full h-full object-cover"
               ></img>
             ) : (
               <div>사진 없음</div>
@@ -101,9 +102,15 @@ const PostCard = ({ post }) => {
           </h3>
           <div className="p-2 border border-gray-500 rounded-xl">
             <ul className="text-sm text-white space-y-1">
-              <li>- 스쿼트 80kg 5x5</li>
-              <li>- 벤치프레스 60kg 5x5</li>
-              <li>- 데드리프트 100kg 3x5</li>
+              {post.exercises && post.exercises.length > 0 ? (
+                post.exercises.map((ex, index) => (
+                  <li key={ex.id || index} className="text-sm text-white">
+                    - {ex.exerciseName} {ex.weight}kg {ex.sets} x {ex.reps}
+                  </li>
+                ))
+              ) : (
+                <li>등록된 운동이 없습니다</li>
+              )}
             </ul>
           </div>
         </div>

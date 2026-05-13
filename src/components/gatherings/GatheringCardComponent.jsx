@@ -23,12 +23,12 @@ const GatheringCardComponent = ({ gathering }) => {
           <span>인원 </span>
           <span
             className={
-              gathering.currentParticipartionsCount >= gathering.maxCapacity
+              gathering.currentParticipationsCount >= gathering.maxCapacity
                 ? "text-red-500 font-bold"
                 : ""
             }
           >
-            {gathering.currentParticipartionsCount} / {gathering.maxCapacity}명
+            {gathering.currentParticipationsCount} / {gathering.maxCapacity}명
           </span>
         </div>
         <div className="w-1/12 flex justify-end">

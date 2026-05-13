@@ -45,7 +45,7 @@ const GatheringDetailComponent = ({ gathering, onClose }) => {
           className={`mt-4 py-2 w-2/12  rounded-xl transition-all ${isFull ? "bg-gray-400 cursor-not-allowed" : "bg-primaryButton hover:bg-secondary"}`}
           disabled={isFull}
           onClick={() => {
-            handleAttend;
+            handleAttend();
           }}
         >
           {isFull ? "정원 초과" : "참가 신청"}
@@ -53,7 +53,7 @@ const GatheringDetailComponent = ({ gathering, onClose }) => {
         <button
           className="mt-4 py-2 w-2/12 bg-primaryButton hover:bg-secondary rounded-xl"
           onClick={() => {
-            handleCancel;
+            handleCancel();
           }}
         >
           참가 취소

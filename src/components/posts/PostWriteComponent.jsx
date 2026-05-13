@@ -12,6 +12,8 @@ const initState = {
 const PostWriteComponent = () => {
   const [imageFiles, setImageFiles] = useState([]);
   const [exercises, setExercises] = useState([initState]);
+  const [title, setTitle] = useState("");
+  const [content, setContent] = useState("");
 
   // 종목 추가
   const addExercise = () => {
@@ -73,7 +75,11 @@ const PostWriteComponent = () => {
       memo: "",
     }));
 
-    const postData = { title: "", content: "", exercises: normalizeExercises };
+    const postData = {
+      title: title,
+      content: content,
+      exercises: normalizeExercises,
+    };
 
     formData.append(
       "requestDto",
@@ -96,7 +102,16 @@ const PostWriteComponent = () => {
   return (
     <div>
       <div className="w-2xl min-h-200 bg-primary border border-black shadow-2xl shadow-neutral-900 rounded-3xl m-4 p-4 flex flex-col items-center">
-        <div className="flex flex-row w-full border border-gray-300 rounded-xl">
+        <div>
+          <input
+            className="flex justify-center items-center text-white font-bold m-2 p-2"
+            placeholder="제목을 입력하세요"
+            value={title}
+            onChange={(e) => setTitle(e.target.value)}
+          ></input>
+        </div>
+
+        <div className="flex flex-row w-full border border-gray-300 rounded-xl ">
           <div className="w-7/12 p-4 border border-gray-200 m-2 rounded-sm">
             <input
               className="border border-gray-300 cursor-pointer"
@@ -107,6 +122,15 @@ const PostWriteComponent = () => {
             ></input>
             <div className="mt-2 text-sm text-gray-500 flex justify-end">
               선택된 파일: {imageFiles.length} 개
+            </div>
+            <div className="flex flex-col gap-2">
+              <span>오늘의 메모</span>
+              <textarea
+                className="flex justify-center items-center w-full min-h-40 border p-2 border-gray-300"
+                placeholder="내용을 입력하세요"
+                value={content}
+                onChange={(e) => setContent(e.target.value)}
+              ></textarea>
             </div>
           </div>
           <div className="w-5/12 p-4 flex-col items-center justify-center">

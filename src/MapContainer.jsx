@@ -45,7 +45,7 @@ function MapContainer() {
   }, []);
 
   return (
-    <div>
+    <div className="flex flex-col p-4 rounded-xl w-10/12 border border-white">
       <div className="flex gap-2 mb-2">
         <button
           onClick={() => searchPlaces(map)}
